@@ -66,7 +66,7 @@ install the network
 ```
 upgrade the network
 ```
-  composer network upgrade -n test-network -V 0.0.x -c PeerAdmin@hlfv1
+  composer network upgrade -c PeerAdmin@hlfv1 -n test-network -V 0.0.x 
 ```
 
 
