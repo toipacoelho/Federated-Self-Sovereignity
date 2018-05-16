@@ -5,18 +5,18 @@
 #### Starting the servers
 
 ```
-    cd ~/fabric-dev-servers
-    ./startFabric.sh
-    ./createPeerAdminCard.sh
+  cd ~/fabric-dev-servers
+  ./startFabric.sh
+  ./createPeerAdminCard.sh
 ```
 
 #### Reseting Servers
 
 Remove `.Composer` from `$HOME`
 ```
-    cd ~/fabric-dev-servers
-    ./stopFabric.sh
-    ./teardownFabric.sh
+  cd ~/fabric-dev-servers
+  ./stopFabric.sh
+  ./teardownFabric.sh
 ```
 
 #### To start playground
@@ -30,28 +30,43 @@ Remove `.Composer` from `$HOME`
 Create the package
 
 ```
-    composer archive create -t dir -n .
+  composer archive create -t dir -n .
 ```
 
 install the network
 ```
-  composer network install --card PeerAdmin@hlfv1 --archiveFile test-network@0.0.x.bna
+  composer network install -c PeerAdmin@hlfv1 -a test-network@0.0.x.bna
 ```
 
 start the network
 ```
-  composer network start --networkName test-network --networkVersion 0.0.x --networkAdmin admin --networkAdminEnrollSecret adminpw --card PeerAdmin@hlfv1 --file networkadmin.card`
+  composer network start -n test-network -V 0.0.x --networkAdmin admin --networkAdminEnrollSecret adminpw -c PeerAdmin@hlfv1 --file networkadmin.card
 ```
 
 import a usable admin
 ```
-  composer card import --file networkadmin.card`
+  composer card import --file networkadmin.card
 ```
 if this results in an error reset the servers.
 
 check if the card is connected
 ```
   composer network ping --card admin@test-network
+```
+### Update version
+
+First update version number in package.json, then run 
+
+```
+  composer archive create -t dir -n .
+```
+install the network
+```
+  composer network install -c PeerAdmin@hlfv1 -a test-network@0.0.x.bna
+```
+upgrade the network
+```
+  composer network upgrade -n test-network -V 0.0.x -c PeerAdmin@hlfv1
 ```
 
 

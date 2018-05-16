@@ -3,7 +3,7 @@
     "composer": "^0.19.4"
   },
   "name": "test-network",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Thesis PoC",
   "scripts": {
     "prepublish": "mkdirp ./dist && composer archive create --sourceType dir --sourceName . -a ./dist/test-network.bna",

@@ -12,7 +12,16 @@
  * limitations under the License.
  */
 
-rule OwnAccess{
+rule RAReadAP{
+  description: "Allow RA to see AP from their area of influence"
+  participant(p): "pt.ua.attr.RA"
+  operation: READ
+  resource(r): "pt.ua.attr.AP"
+  condition: (p.BusinessType == r.BusinessType)
+  action: ALLOW
+}
+
+rule OwnRead{
   description: "Allow owners/issuers to view their attributes that name them"
   participant(p): "pt.ua.attr.Member"
   operation: READ
@@ -30,7 +39,7 @@ rule AttrUpdate{
   action: ALLOW
 }
 
-rule RAcreatesAP{
+rule RAWriteAP{
   description: "Allow RA to create AP"
   participant: "pt.ua.attr.RA"
   operation: CREATE
