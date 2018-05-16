@@ -12,6 +12,15 @@
  * limitations under the License.
  */
 
+rule OwnAccess{
+  description: "Allow owners/issuers to view their attributes that name them"
+  participant(p): "pt.ua.attr.Member"
+  operation: READ
+  resource(r): "pt.ua.attr.Attribute"
+  condition: ((r.owner.getIdentifier() == p.getIdentifier()) || (r.issuer.getIdentifier() == p.getIdentifier()))
+  action: ALLOW
+}
+
 rule AttrUpdate{
   description: "AP can update an attr if they are the issuer"
   participant(p): "pt.ua.attr.AP"
