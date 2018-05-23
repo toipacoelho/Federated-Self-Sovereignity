@@ -1,0 +1,6 @@
+query getAttributeByOwnerID {
+  description: "Get Attribute by owner ID"
+  statement:
+    SELECT pt.ua.attr.Attribute
+      WHERE (owner.memberID == _$memberID )
+}

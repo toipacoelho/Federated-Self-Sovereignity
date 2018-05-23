@@ -16,6 +16,7 @@
  * Write your model definitions here
  */
 
+//pt.prog.WIO.* remembers
 namespace pt.ua.attr
 
 /*
@@ -45,7 +46,8 @@ asset Attribute identified by attrID{
   --> User owner
   o BusinessType type
   o RevokeStatus revokeStatus optional
-  --> Member[] revokers
+  --> Member[] revokers optional
+  o String[] authorized optional
 }
 
  /*
@@ -54,16 +56,17 @@ asset Attribute identified by attrID{
 
 abstract participant Member identified by memberID {
   o String memberID
-  o String[] authorized optional
 }
 
 participant AP extends Member {
   o String name
+  o String certificate
   o BusinessType type
 }
 
 participant RA extends Member {
   o String name
+  o String certificate
   o BusinessType type
 }
 

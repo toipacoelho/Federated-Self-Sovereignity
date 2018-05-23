@@ -12,6 +12,31 @@
  * limitations under the License.
  */
 
+ rule readauthorized{
+   description: "Allow services to read attributes that they are authorized to read"
+   participant (p): "pt.ua.attr.Member"
+   operation: READ
+   resource (r): "pt.ua.attr.Attribute"
+   condition: (r.authorized.includes(p.getIdentifier()))
+   action: ALLOW
+ }
+
+rule revoketAccessTransaction{
+  description: "Allow participants to submit revokeAccess transactions"
+  participant: "ANY"
+  operation: CREATE
+  resource: "pt.ua.attr.RevokeAccess"
+  action: ALLOW
+}
+
+rule grantAccessTransaction{
+  description: "Allow participants to submit grantAccess transactions"
+  participant: "ANY"
+  operation: CREATE
+  resource: "pt.ua.attr.GrantAccess"
+  action: ALLOW
+}
+
 rule RAReadAP{
   description: "Allow RA to see AP from their area of influence"
   participant(p): "pt.ua.attr.RA"
@@ -35,7 +60,7 @@ rule AttrUpdate{
   participant(p): "pt.ua.attr.AP"
   operation: UPDATE
   resource(r): "pt.ua.attr.Attribute"
-  condition: (r.issuer.getIdentifier() == p.getIdentifier())
+  condition: (r.issuer.getIdentifier() == p.getIdentifier() || r.owner.getIdentifier() == p.getIdentifier())
   action: ALLOW
 }
 
