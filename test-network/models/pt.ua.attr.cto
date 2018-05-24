@@ -56,17 +56,16 @@ asset Attribute identified by attrID{
 
 abstract participant Member identified by memberID {
   o String memberID
+  o String certificate
 }
 
 participant AP extends Member {
   o String name
-  o String certificate
   o BusinessType type
 }
 
 participant RA extends Member {
   o String name
-  o String certificate
   o BusinessType type
 }
 
