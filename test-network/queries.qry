@@ -1,0 +1,6 @@
+query getAttributeByOwner{
+  description: "Select all attributes based on their owner"
+  statement:
+    SELECT pt.ua.attr.Attribute
+      WHERE (owner == _$member)
+}

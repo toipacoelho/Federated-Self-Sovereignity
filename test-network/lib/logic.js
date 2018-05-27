@@ -18,11 +18,11 @@
         throw new Error('Invalid rquest. \'memberID\' should be defined');
     }
 
-    var meID = me.getIdentifier();
+    //var meID = me.getIdentifier();
 
-    console.log ('Mmeber ' + meID + 'grating \'attribute\' access to ' + serviceID);
+    //console.log ('Member ' + meID + 'grating \'attribute\' access to ' + serviceID);
 
-    return query("getAttributeByOwnerID", {memberID: meID})
+    return query("getAttributeByOwner", {member: me})
         .then(function (records){
             if (records.length > 0){
                 var serializer = getSerializer();
