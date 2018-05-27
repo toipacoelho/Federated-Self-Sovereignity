@@ -1,3 +1,11 @@
+//Test line
+
+query selectMembers {
+  description: "Select all members"
+  statement:
+      SELECT pt.ua.attr.Member
+}
+
 query getAttributeByOwner{
   description: "Select all attributes based on their owner"
   statement:
