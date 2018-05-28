@@ -18,11 +18,15 @@
         throw new Error('Invalid rquest. \'memberID\' should be defined');
     }
 
-    //var meID = me.getIdentifier();
+    var meID = me.getIdentifier();
 
-    //console.log ('Member ' + meID + 'grating \'attribute\' access to ' + serviceID);
+    console.log ('Member ' + meID + 'grating \'attribute\' access to ' + serviceID);
+    
+    //me should be in the following format: resource:pt.ua.attr.User#meID
 
-    return query("getAttributeByOwner", {member: me})
+    meResource = "resource:pt.ua.attr.User#" + meID
+
+    return query("getAttributeByOwner", {member: meResource})
         .then(function (records){
             if (records.length > 0){
                 var serializer = getSerializer();
@@ -66,11 +70,15 @@ async function RevokeAccess(transaction){
         throw new Error('Invalid rquest. \'memberID\' should be defined');
     }
 
-    //var meID = me.getIdentifier();
+    var meID = me.getIdentifier();
 
-    //console.log ('Member ' + meID + 'revokes \'attribute\' access to ' + serviceID);
+    console.log ('Member ' + meID + 'grating \'attribute\' access to ' + serviceID);
+    
+    //me should be in the following format: resource:pt.ua.attr.User#meID
 
-    return query("getAttributeByOwner", {member: me})
+    meResource = "resource:pt.ua.attr.User#" + meID
+
+    return query("getAttributeByOwner", {member: meResource})
         .then(function (records){
             if (records.length > 0){
                 var serializer = getSerializer();
