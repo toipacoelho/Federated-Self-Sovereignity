@@ -47,7 +47,7 @@ asset Attribute identified by attrID{
   o BusinessType type
   o RevokeStatus revokeStatus optional
   --> Member[] revokers optional
-  o String[] authorized optional
+  //o String[] authorized optional
 }
 
  /*
@@ -68,6 +68,12 @@ participant RA extends Member {
   o String name
   o BusinessType type
 }
+
+participant SP extends Member {
+  o String name
+  o String [] granted optional
+}
+
 
 participant User extends Member {
 }
