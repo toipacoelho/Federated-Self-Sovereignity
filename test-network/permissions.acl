@@ -38,8 +38,8 @@ rule grantAccessTransaction{
 }
 
 rule RAReadAP{
-  description: "Allow RA to see AP from their area of influence"
-  participant(p): "pt.ua.attr.RA"
+  description: "Allow RB to see AP from their area of influence"
+  participant(p): "pt.ua.attr.RB"
   operation: READ
   resource(r): "pt.ua.attr.AP"
   condition: (p.BusinessType == r.BusinessType)
@@ -66,7 +66,7 @@ rule AttrUpdate{
 
 rule RAWriteAP{
   description: "Allow RA to create AP"
-  participant: "pt.ua.attr.RA"
+  participant: "pt.ua.attr.RB"
   operation: CREATE
   resource: "pt.ua.attr.AP"
   action: ALLOW

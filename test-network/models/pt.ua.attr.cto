@@ -64,7 +64,7 @@ participant AP extends Member {
   o BusinessType type
 }
 
-participant RA extends Member {
+participant RB extends Member {
   o String name
   o BusinessType type
 }
