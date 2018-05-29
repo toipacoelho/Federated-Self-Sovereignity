@@ -38,7 +38,6 @@ enum BusinessType{
  /*
  * Assets
  */
-
 asset Attribute identified by attrID{
   o String attrID
   o String blob
@@ -47,13 +46,11 @@ asset Attribute identified by attrID{
   o BusinessType type
   o RevokeStatus revokeStatus optional
   --> Member[] revokers optional
-  //o String[] authorized optional
 }
 
  /*
  * Participants
  */
-
 abstract participant Member identified by memberID {
   o String memberID
   o String certificate
@@ -74,24 +71,22 @@ participant SP extends Member {
   o String [] granted optional
 }
 
-
 participant User extends Member {
 }
 
  /*
  * Transactions
  */
-
 abstract transaction Attrtransaction {
   o String memberID
 }
 
 transaction GrantAccess extends Attrtransaction {
-  o String[] attrIDs
+  o String attrIDs
 }
 
 transaction RevokeAccess extends Attrtransaction {
-  o String[] attrIDs
+  o String attrIDs
 }
 
 transaction RevokeAttr extends Attrtransaction {
@@ -102,7 +97,6 @@ transaction RevokeAttr extends Attrtransaction {
  /*
  * Events
  */
-
 event AttrEvent{
   o Attrtransaction attrtransaction
 }

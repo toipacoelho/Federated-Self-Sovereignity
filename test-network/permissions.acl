@@ -17,23 +17,43 @@
    participant (p): "pt.ua.attr.Member"
    operation: READ
    resource (r): "pt.ua.attr.Attribute"
-   condition: (r.authorized.includes(p.getIdentifier()))
+   condition: (participantGrantedAsset(p, r))
    action: ALLOW
  }
 
-rule revoketAccessTransaction{
-  description: "Allow participants to submit revokeAccess transactions"
-  participant: "ANY"
+rule executeGrantAccessTransaction{
+  description: "Allow participants to submit GrantAccess transactions"
+  participant: "pt.ua.attr.Member"
+  operation: CREATE
+  resource: "pt.ua.attr.GrantAccess"
+  action: ALLOW
+}
+
+rule grantAccessTransaction{
+  description: "Allow participants to submit GrantAccess transactions"
+  participant(p): "pt.ua.attr.Member"
+  operation: UPDATE
+  resource (r): "pt.ua.attr.SP"
+  transaction (tx): "pt.ua.attr.GrantAccess"
+  condition: (1 == 1)
+  action: ALLOW
+}
+
+rule executeRevokeAccessTransaction{
+  description: "Allow participants to submit RevokeAccess transactions"
+  participant: "pt.ua.attr.Member"
   operation: CREATE
   resource: "pt.ua.attr.RevokeAccess"
   action: ALLOW
 }
 
-rule grantAccessTransaction{
-  description: "Allow participants to submit grantAccess transactions"
-  participant: "ANY"
-  operation: CREATE
-  resource: "pt.ua.attr.GrantAccess"
+rule revokeAccessTransaction{
+  description: "Allow participants to submit RevokeAccess transactions"
+  participant(p): "pt.ua.attr.Member"
+  operation: UPDATE
+  resource (r): "pt.ua.attr.SP"
+  transaction (tx): "pt.ua.attr.RevokeAccess"
+  condition: (1 == 1)
   action: ALLOW
 }
 
@@ -46,12 +66,21 @@ rule RAReadAP{
   action: ALLOW
 }
 
-rule OwnRead{
+rule ReadOwnAssets{
   description: "Allow owners/issuers to view their attributes that name them"
   participant(p): "pt.ua.attr.Member"
   operation: READ
   resource(r): "pt.ua.attr.Attribute"
   condition: ((r.owner.getIdentifier() == p.getIdentifier()) || (r.issuer.getIdentifier() == p.getIdentifier()))
+  action: ALLOW
+}
+
+rule ReadSelf{
+  description: "Allow members to view them selfs"
+  participant(p): "pt.ua.attr.Member"
+  operation: READ
+  resource(r): "pt.ua.attr.Member"
+  condition: (p.getIdentifier() == r.getIdentifier())
   action: ALLOW
 }
 

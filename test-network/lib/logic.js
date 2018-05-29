@@ -1,56 +1,33 @@
 'use strict';
 
+const namespace = 'pt.ua.attr';
+
 /*
  * Track granted authorizations to access attributes
  * @param {pt.ua.attr.GrantAccess} transaction - grant access
  * @transaction
  */
+ async function GrantAccess(tx){
+    //required registries for this operation
+    const participantReg = await getParticipantRegistry(namespace + '.SP');
+    const assetReg = await getAssetRegistry(namespace + '.Attribute');
 
- async function GrantAccess(transaction){
-    const me = getCurrentParticipant();
-
-    if(!me){
-        throw new Error('A participant/attribute mapping does not exist');
-    }
-
-    var serviceID = transaction.memberID
-    if (!serviceID){
-        throw new Error('Invalid rquest. \'memberID\' should be defined');
-    }
-
-    var meID = me.getIdentifier();
-
-    console.log ('Member ' + meID + 'grating \'attribute\' access to ' + serviceID);
+    let sp = await participantReg.get(tx.memberID)
+    let attrID = tx.attrIDs;
+    let index = -1;
     
-    //me should be in the following format: resource:pt.ua.attr.User#meID
-
-    meResource = "resource:pt.ua.attr.User#" + meID
-
-    return query("getAttributeByOwner", {member: meResource})
-        .then(function (records){
-            if (records.length > 0){
-                var serializer = getSerializer();
-                var attribute = serializer.toJSON(records[0])
-
-                if(!Array.isArray(attribute.authorized)){
-                    attribute.authorized = [];
-                }
-
-                if (attribute.authorized.indexOf(serviceID) < 0) {
-                    degree.authorized.push(serviceID);
-
-                    return getAssetRegistry('pt.ua.attr.Attribute')
-                        .then (function (registry) {registry.update(serializer.fromJSON(attribute))})
-                        .then (function(){
-                            var event = getFactory().newEvent('pt.ua.attr', 'AttrEvent');
-                            event.Attrtransaction = transaction;
-                            emit(event)
-                        });
-                }
-            }
-        })
-        .catch(function (ex) { console.error(ex); throw ex; });
- }
+    if(!sp.granted){
+        sp.granted = [];
+    }
+    else {
+        index = sp.granted.indexOf(attrID);
+    }
+    
+    if(index < 0){
+        sp.granted.push(attrID);
+        await participantReg.update(sp);
+  }   
+}
 
  /*
  * Track granted authorizations to access attributes
@@ -58,50 +35,20 @@
  * @transaction
  */
 
-async function RevokeAccess(transaction){
-    const me = getCurrentParticipant();
+async function RevokeAccess(tx){
+    //required registries for this operation
+    const participantReg = await getParticipantRegistry(namespace + '.SP');
+    const assetReg = await getAssetRegistry(namespace + '.Attribute');
 
-    if(!me){
-        throw new Error('A participant/attribute mapping does not exist');
-    }
-
-    var serviceID = transaction.memberID
-    if (!serviceID){
-        throw new Error('Invalid rquest. \'memberID\' should be defined');
-    }
-
-    var meID = me.getIdentifier();
-
-    console.log ('Member ' + meID + 'grating \'attribute\' access to ' + serviceID);
+    let sp = await participantReg.get(tx.memberID)
+    let attrID = tx.attrIDs;
     
-    //me should be in the following format: resource:pt.ua.attr.User#meID
+    const index = sp.granted ? sp.granted.indexOf(attrID) : -1;
 
-    meResource = "resource:pt.ua.attr.User#" + meID
-
-    return query("getAttributeByOwner", {member: meResource})
-        .then(function (records){
-            if (records.length > 0){
-                var serializer = getSerializer();
-                var attribute = serializer.toJSON(records[0])
-
-                if(!Array.isArray(attribute.authorized)){
-                    var index = attribute.authorized.indexOf(serviceID);
-                    
-                    if (index >= 0) {
-                        degree.authorized.splice(index, 1);
-
-                        return getAssetRegistry('pt.ua.attr.Attribute')
-                            .then (function (registry) {registry.update(serializer.fromJSON(attribute))})
-                            .then (function(){
-                                var event = getFactory().newEvent('pt.ua.attr', 'AttrEvent');
-                                event.Attrtransaction = transaction;
-                                emit(event)
-                            });
-                    }
-                }
-            }
-        })
-        .catch(function (ex) { console.error(ex); throw ex; });
+    if(index > -1){
+        sp.granted.splice(index, 1);
+        await participantReg.update(sp);
+    }
 }
 
 /*
