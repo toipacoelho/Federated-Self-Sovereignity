@@ -1,72 +1,18 @@
 # Federated-Self-Sovereignity
 
-### Server related
+Before cloning and test this repo please install the [pre-requisites](https://hyperledger.github.io/composer/latest/installing/installing-prereqs.html) and Hyperledger Composer [development environment](https://hyperledger.github.io/composer/latest/installing/development-tools.html) .
 
-#### Starting the servers
+The environment can be set up very easily using `Thesis.sh` with the options  `[-h] [-u version] [-d]`  where:
+```
+-h show help text
+-u launch network
+-d purge network"
+```
+Note that the version should be the same defined in `package.json`.
 
-```
-  cd ~/fabric-dev-servers
-  ./startFabric.sh
-  ./createPeerAdminCard.sh
-```
+The network can be quickly populated through the rest server (`composer-rest-server`) and executing `genesis.sh`.
 
-#### Reseting Servers
 
-Remove `.Composer` from `$HOME`
-```
-  cd ~/fabric-dev-servers
-  ./stopFabric.sh
-  ./teardownFabric.sh
-```
 
-#### To start playground
-
-```
-  composer-playground
-```
-
-### Prepare and upload
-
-Create the package
-
-```
-  composer archive create -t dir -n .
-```
-
-install the network
-```
-  composer network install -c PeerAdmin@hlfv1 -a test-network@0.0.x.bna
-```
-
-start the network
-```
-  composer network start -n test-network -V 0.0.x --networkAdmin admin --networkAdminEnrollSecret adminpw -c PeerAdmin@hlfv1 --file networkadmin.card
-```
-
-import a usable admin
-```
-  composer card import --file networkadmin.card
-```
-if this results in an error reset the servers.
-
-check if the card is connected
-```
-  composer network ping --card admin@test-network
-```
-### Update version
-
-First update version number in package.json, then run 
-
-```
-  composer archive create -t dir -n .
-```
-install the network
-```
-  composer network install -c PeerAdmin@hlfv1 -a test-network@0.0.x.bna
-```
-upgrade the network
-```
-  composer network upgrade -c PeerAdmin@hlfv1 -n test-network -V 0.0.x 
-```
 
 
