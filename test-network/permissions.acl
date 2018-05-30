@@ -35,7 +35,7 @@ rule grantAccessTransaction{
   operation: UPDATE
   resource (r): "pt.ua.attr.SP"
   transaction (tx): "pt.ua.attr.GrantAccess"
-  condition: (1 == 1)
+  condition: (participantOwnerofAsset(p, r))
   action: ALLOW
 }
 
@@ -53,7 +53,7 @@ rule revokeAccessTransaction{
   operation: UPDATE
   resource (r): "pt.ua.attr.SP"
   transaction (tx): "pt.ua.attr.RevokeAccess"
-  condition: (1 == 1)
+  condition: (participantOwnerofAsset(p, r))
   action: ALLOW
 }
 

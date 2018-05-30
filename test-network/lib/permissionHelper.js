@@ -1,4 +1,6 @@
 'use strict';
+const namespace = 'pt.ua.attr';
+
 
 /**
  * Permissions helper for ACL rules
@@ -11,7 +13,13 @@
  * @returns {boolean} true/false
  */
  function participantOwnerofAsset(participant, transaction){
-     return true
+    const assetReg = getAssetRegistry(namespace + '.Attribute');
+
+    let asset = assetReg.get(transaction.attrIDs);
+
+    return (asset.owner.getIdentifier() == participant.getIdentifier());
+    
+   return true;
  }
 
  /**
@@ -22,7 +30,7 @@
  */
 function participantGrantedAsset(participant, asset){
     const index = participant.granted ? participant.granted.indexOf(asset.getIdentifier()) : -1;
-    return (index > -1)
+    return (index > -1);
 }
 
  /**
@@ -32,5 +40,6 @@ function participantGrantedAsset(participant, asset){
  * @returns {boolean} true/false
  */
 function participantRevokerofAsset(participant, asset){
-    return true
+    const index = asset.revokers ? asset.revokers.indexOf(participant.getIdentifier()) : -1;
+    return (index > -1);
 }

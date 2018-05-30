@@ -19,7 +19,11 @@ while getopts 'hu:d' option; do
     h)  echo "$usage"
         exit
         ;;
-    u)  $HOME/fabric-dev-servers/startFabric.sh
+    u)  $HOME/fabric-dev-servers/stopFabric.sh
+        printf "\n"
+        $HOME/fabric-dev-servers/teardownFabric.sh
+        printf "\n"
+        $HOME/fabric-dev-servers/startFabric.sh
         $HOME/fabric-dev-servers/createPeerAdminCard.sh
         cd $HOME/Thesis/test-network
         composer archive create -t dir -n .
