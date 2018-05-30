@@ -4,3 +4,5 @@ query getAttributeByOwner{
     SELECT pt.ua.attr.Attribute
       WHERE (owner == _$member)
 }
+
+//query get grantedSPs
