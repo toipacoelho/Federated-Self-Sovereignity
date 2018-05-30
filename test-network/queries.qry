@@ -5,4 +5,9 @@ query getAttributeByOwner{
       WHERE (owner == _$member)
 }
 
-//query get grantedSPs
+query getGrantedSP{
+  description: "Sellect all SPs with access to one owner attribute"
+  statement:
+    SELECT pt.ua.attr.SP
+      WHERE (granted CONTAINS _$attrID)
+}

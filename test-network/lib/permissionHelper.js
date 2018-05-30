@@ -22,12 +22,7 @@
  */
 function participantGrantedAsset(participant, asset){
     const index = participant.granted ? participant.granted.indexOf(asset.getIdentifier()) : -1;
-    if (index > -1){
-        return true
-    }
-    else{
-        return false
-    }
+    return (index > -1)
 }
 
  /**
