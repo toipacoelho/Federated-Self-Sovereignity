@@ -1,6 +1,6 @@
 'use strict';
-const namespace = 'pt.ua.attr';
 
+//const namespace = 'pt.ua.attr';
 
 /**
  * Permissions helper for ACL rules

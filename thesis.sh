@@ -23,6 +23,7 @@ while getopts 'hu:d' option; do
         printf "\n"
         $HOME/fabric-dev-servers/teardownFabric.sh
         printf "\n"
+        rm -rf $HOME/.composer
         $HOME/fabric-dev-servers/startFabric.sh
         $HOME/fabric-dev-servers/createPeerAdminCard.sh
         cd $HOME/Thesis/test-network
