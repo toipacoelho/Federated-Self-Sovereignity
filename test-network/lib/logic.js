@@ -12,10 +12,15 @@ const namespace = 'pt.ua.attr';
     const participantReg = await getParticipantRegistry(namespace + '.SP');
     const assetReg = await getAssetRegistry(namespace + '.Attribute');
 
-    let sp = await participantReg.get(tx.memberID)
+    let sp = await participantReg.get(tx.memberID);
+    let attr = await assetReg.get(tx.attrIDs);
     let attrID = tx.attrIDs;
     let index = -1;
     
+    if(attr.revokeStatus.status){
+        throw new Error("Attribute revoked")
+    }
+
     if(!sp.granted){
         sp.granted = [];
     }
