@@ -57,6 +57,13 @@ async function RevokeAccess(tx){
  * @transaction
  */
 
-async function RevokeAttr(transaction){
-     
+async function RevokeAttr(tx){
+    //required registries for this operation
+    const assetReg = await getAssetRegistry(namespace + '.Attribute');
+
+    let attr = await assetReg.get(tx.attrID);
+    
+    attr.revokeStatus = tx.revokeStatus;
+    
+    await assetReg.update(attr);
 }

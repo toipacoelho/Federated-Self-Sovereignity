@@ -12,6 +12,14 @@
  * limitations under the License.
  */
 
+ rule revoketransaction{
+   description: "allow revoke or repud of attributes"
+   participant: "pt.ua.attr.Member"
+   operation: CREATE
+   resource: "pt.ua.attr.RevokeAccess"
+   action: ALLOW
+ }
+
  rule readauthorized{
    description: "Allow services to read attributes that they are authorized to read"
    participant (p): "pt.ua.attr.Member"
@@ -32,7 +40,7 @@ rule executeGrantAccessTransaction{
 rule grantAccessTransaction{
   description: "Allow participants to submit GrantAccess transactions"
   participant(p): "pt.ua.attr.Member"
-  operation: UPDATE
+  operation: UPDATE, READ
   resource (r): "pt.ua.attr.SP"
   transaction (tx): "pt.ua.attr.GrantAccess"
   condition: (participantOwnerofAsset(p, r))
@@ -50,7 +58,7 @@ rule executeRevokeAccessTransaction{
 rule revokeAccessTransaction{
   description: "Allow participants to submit RevokeAccess transactions"
   participant(p): "pt.ua.attr.Member"
-  operation: UPDATE
+  operation: UPDATE, READ
   resource (r): "pt.ua.attr.SP"
   transaction (tx): "pt.ua.attr.RevokeAccess"
   condition: (participantOwnerofAsset(p, r))

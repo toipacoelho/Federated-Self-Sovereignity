@@ -91,7 +91,7 @@ transaction RevokeAccess extends Attrtransaction {
 
 transaction RevokeAttr extends Attrtransaction {
   o String attrID
-  o RevokeStatus revokestatus
+  o RevokeStatus revokeStatus
 }
 
  /*
