@@ -50,7 +50,7 @@ import { RevokeAttrComponent } from './RevokeAttr/RevokeAttr.component';
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    AppRoutingModule
+		AppRoutingModule
   ],
   providers: [
     DataService
