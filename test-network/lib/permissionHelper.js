@@ -6,22 +6,6 @@
  * Permissions helper for ACL rules
  */
 
-/**
- * check if participant owns the asset
- * @param {*} participant the owner of the asset
- * @param {*} transaction input from the transaction to authorize
- * @returns {boolean} true/false
- */
- function participantOwnerofAsset(participant, transaction){
-    const assetReg = getAssetRegistry(namespace + '.Attribute');
-
-    let asset = assetReg.get(transaction.attrIDs);
-
-    return (asset.owner.getIdentifier() == participant.getIdentifier());
-    
-   return true;
- }
-
  /**
  * check if participant was granted access to the asset
  * @param {*} participant the owner of the asset

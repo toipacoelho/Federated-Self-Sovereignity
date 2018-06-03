@@ -77,19 +77,19 @@ participant User extends Member {
  /*
  * Transactions
  */
-abstract transaction Attrtransaction {
+abstract transaction Membertransaction {
   o String memberID
 }
 
-transaction GrantAccess extends Attrtransaction {
-  o String attrIDs
+transaction GrantAccess extends Membertransaction {
+  o String attrID
 }
 
-transaction RevokeAccess extends Attrtransaction {
-  o String attrIDs
+transaction RevokeAccess extends Membertransaction {
+  o String attrID
 }
 
-transaction RevokeAttr extends Attrtransaction {
+transaction RevokeAttr{
   o String attrID
   o RevokeStatus revokeStatus
 }
@@ -98,5 +98,9 @@ transaction RevokeAttr extends Attrtransaction {
  * Events
  */
 event AttrEvent{
-  o Attrtransaction attrtransaction
+  o Membertransaction attrtransaction
+}
+
+event AttrRevokeEvent{
+  o RevokeAttr revokeattr
 }

@@ -15,9 +15,9 @@ printf "\n\n"
 curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{"$class": "pt.ua.attr.SP", "name": "e.g. a service provider", "memberID": "0004", "certificate": "LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0KTUlHZk1BMEdDU3FHU0liM0RRRUJBUVVBQTRHTkFEQ0JpUUtCZ1FDZmxteWRXamJQN1pCcVE4enEyeEE5VzZyMgppdkdtS1ZTclhBdWlxRmFXakdaTFlCWEUyejNZQm0xdjdNWnpYR0FpeWdFa3BKbGZ3SUx1d1pRb3F6MHVYZXRiCkFORGdiN1FQWUxrRkZPREthZ0JGemx4TnNmaDFhZ3RNbkRkVUx3aFZFcDlOUXZhUWgzV0pRR3VNZFpYdTI5UmkKNHVLZnFGeGRtMytDV0wxZmN3SURBUUFCCi0tLS0tRU5EIFBVQkxJQyBLRVktLS0tLQo="}' http://localhost:3000/api/SP
 printf "\n\n"
 
-curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{"$class": "pt.ua.attr.Attribute", "attrID": "0010", "blob": "string", "issuer": "resource:pt.ua.attr.AP#0001", "owner": "resource:pt.ua.attr.User#0003", "type": "BANK"}' http://localhost:3000/api/Attribute
+curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{"$class": "pt.ua.attr.Attribute", "attrID": "0010", "blob": "string", "issuer": "resource:pt.ua.attr.AP#0002", "owner": "resource:pt.ua.attr.User#0003", "type": "BANK"}' http://localhost:3000/api/Attribute
 printf "\n\n"
 
-curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{"$class": "pt.ua.attr.Attribute", "attrID": "0020", "blob": "string", "issuer": "resource:pt.ua.attr.AP#0001", "owner": "resource:pt.ua.attr.User#0005", "type": "BANK"}' http://localhost:3000/api/Attribute
+curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{"$class": "pt.ua.attr.Attribute", "attrID": "0020", "blob": "string", "issuer": "resource:pt.ua.attr.AP#0002", "owner": "resource:pt.ua.attr.User#0005", "type": "BANK"}' http://localhost:3000/api/Attribute
 printf "\n\n"
 

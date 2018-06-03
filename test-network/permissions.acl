@@ -12,22 +12,22 @@
  * limitations under the License.
  */
 
- rule revoketransaction{
-   description: "allow revoke or repud of attributes"
-   participant: "pt.ua.attr.Member"
-   operation: CREATE
-   resource: "pt.ua.attr.RevokeAccess"
-   action: ALLOW
- }
+rule executerevoketAttrransaction{
+  description: "allow revoke or repud of attributes"
+  participant: "pt.ua.attr.Member"
+  operation: CREATE
+  resource: "pt.ua.attr.RevokeAttr"
+  action: ALLOW
+}
 
- rule readauthorized{
-   description: "Allow services to read attributes that they are authorized to read"
-   participant (p): "pt.ua.attr.Member"
-   operation: READ
-   resource (r): "pt.ua.attr.Attribute"
-   condition: (participantGrantedAsset(p, r))
-   action: ALLOW
- }
+rule readauthorized{
+  description: "Allow services to read attributes that they are authorized to read"
+  participant (p): "pt.ua.attr.Member"
+  operation: READ
+  resource (r): "pt.ua.attr.Attribute"
+  condition: (participantGrantedAsset(p, r))
+  action: ALLOW
+}
 
 rule executeGrantAccessTransaction{
   description: "Allow participants to submit GrantAccess transactions"
@@ -39,11 +39,10 @@ rule executeGrantAccessTransaction{
 
 rule grantAccessTransaction{
   description: "Allow participants to submit GrantAccess transactions"
-  participant(p): "pt.ua.attr.Member"
+  participant: "pt.ua.attr.Member"
   operation: UPDATE, READ
-  resource (r): "pt.ua.attr.SP"
-  transaction (tx): "pt.ua.attr.GrantAccess"
-  condition: (participantOwnerofAsset(p, r))
+  resource: "pt.ua.attr.SP"
+  transaction: "pt.ua.attr.GrantAccess"
   action: ALLOW
 }
 
@@ -57,15 +56,14 @@ rule executeRevokeAccessTransaction{
 
 rule revokeAccessTransaction{
   description: "Allow participants to submit RevokeAccess transactions"
-  participant(p): "pt.ua.attr.Member"
+  participant: "pt.ua.attr.Member"
   operation: UPDATE, READ
-  resource (r): "pt.ua.attr.SP"
-  transaction (tx): "pt.ua.attr.RevokeAccess"
-  condition: (participantOwnerofAsset(p, r))
+  resource: "pt.ua.attr.SP"
+  transaction: "pt.ua.attr.RevokeAccess"
   action: ALLOW
 }
 
-rule RAReadAP{
+rule RBReadAP{
   description: "Allow RB to see AP from their area of influence"
   participant(p): "pt.ua.attr.RB"
   operation: READ
@@ -101,7 +99,7 @@ rule AttrUpdate{
   action: ALLOW
 }
 
-rule RAWriteAP{
+rule RBCreateAP{
   description: "Allow RA to create AP"
   participant: "pt.ua.attr.RB"
   operation: CREATE

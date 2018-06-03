@@ -13,13 +13,15 @@ const namespace = 'pt.ua.attr';
     const assetReg = await getAssetRegistry(namespace + '.Attribute');
 
     let sp = await participantReg.get(tx.memberID);
-    let attr = await assetReg.get(tx.attrIDs);
-    let attrID = tx.attrIDs;
+    let attr = await assetReg.get(tx.attrID);
+    let attrID = tx.attrID;
     let index = -1;
     
-    if(attr.revokeStatus.status){
-        throw new Error("Attribute revoked")
-    }
+    try {
+        if(attr.revokeStatus.status){
+            throw new Error("Attribute revoked")
+        }
+    }catch(err){}
 
     if(!sp.granted){
         sp.granted = [];
@@ -31,7 +33,7 @@ const namespace = 'pt.ua.attr';
     if(index < 0){
         sp.granted.push(attrID);
         await participantReg.update(sp);
-  }   
+    }
 }
 
  /*
@@ -39,14 +41,13 @@ const namespace = 'pt.ua.attr';
  * @param {pt.ua.attr.RevokeAccess} transaction - revoke access
  * @transaction
  */
-
 async function RevokeAccess(tx){
     //required registries for this operation
     const participantReg = await getParticipantRegistry(namespace + '.SP');
     const assetReg = await getAssetRegistry(namespace + '.Attribute');
 
     let sp = await participantReg.get(tx.memberID)
-    let attrID = tx.attrIDs;
+    let attrID = tx.attrID;
     
     const index = sp.granted ? sp.granted.indexOf(attrID) : -1;
 
@@ -61,7 +62,6 @@ async function RevokeAccess(tx){
  * @param {pt.ua.attr.RevokeAttr} transaction - revoke an attribute
  * @transaction
  */
-
 async function RevokeAttr(tx){
     //required registries for this operation
     const assetReg = await getAssetRegistry(namespace + '.Attribute');
